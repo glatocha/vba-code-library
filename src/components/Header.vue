@@ -1,0 +1,70 @@
+<template>
+  <div class="bg-opacity-10 bg-white">
+    <div
+      class="flex px-5 py-2 items-center justify-between max-w-screen-lg m-auto"
+    >
+      <img src="../assets/favicon.png" alt="" class="h-7 sm:h-16" />
+      <h1 class="text-white text-md uppercase font-bold sm:text-3xl">
+        VBA Code Library
+      </h1>
+      <button
+        v-if="!user"
+        class="text-white font-bold bg-primary px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark scale-50 sm:scale-100 transition-scale hover:scale-105 duration-50 ease-in-out"
+        title="Only for admin functions"
+        @click="displayLoginDialog"
+      >
+        ADMIN
+      </button>
+      <div v-else>
+        <button
+          class="text-white font-bold bg-primary mx-1 px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark scale-50 sm:scale-100 transition-scale hover:scale-55 sm:hover:scale-105 duration-50 ease-in-out"
+          title="Only for admin functions"
+          @click="displayAddDialog"
+        >
+          ADD
+        </button>
+        <button
+          class="text-white font-bold bg-primary mx-1 px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark scale-50 sm:scale-100 transition-scale hover:scale-55 sm:hover:scale-105 duration-50 ease-in-out"
+          title="Only for admin functions"
+          @click="logout"
+        >
+          LOGOUT
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { computed } from "vue";
+import { useStore } from "vuex";
+import { supabase } from "../supabase/init";
+
+export default {
+  setup() {
+    const store = useStore();
+
+    const user = computed(() => store.getters.user);
+
+    function displayLoginDialog() {
+      store.dispatch("openLoginDialog");
+    }
+    function displayAddDialog() {
+      store.dispatch("openAddDialog");
+    }
+
+    async function logout() {
+      await supabase.auth.signOut();
+    }
+
+    return {
+      displayLoginDialog,
+      displayAddDialog,
+      user,
+      logout,
+    };
+  },
+};
+</script>
+
+<style scoped></style>
