@@ -16,14 +16,17 @@ Test resolutions:
 - Wide HD
 
 Saturday 04.06.2022
-- loading screen 
-- copy to Clipboard function
+- change the policies for loading - DONE
+- allow modification only for admin user - DONE
+- loading screen  - DONE
+- copy to Clipboard function - DONE
+- styling the add/edit window - DONE
 - buttons sizing redo
-- edit/delete buttons on the list
-- edit dialog
-- edit function
+- edit/delete buttons on the list - DONE
+- edit dialog - DONE
+- edit function - DONE
+- delete function - DONE
 - some messages system - tosters?
-- allow modification only for admin user
 
 Friday 03.06.2022
 - Load all items from supabase and populate the table - DONE

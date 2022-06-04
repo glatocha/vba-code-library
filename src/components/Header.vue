@@ -3,13 +3,18 @@
     <div
       class="flex px-5 py-2 items-center justify-between max-w-screen-lg m-auto"
     >
-      <img src="../assets/favicon.png" alt="" class="h-7 sm:h-16" />
+      <img
+        src="../assets/favicon.png"
+        alt=""
+        class="h-7 sm:h-16"
+        @click="forceRefresh"
+      />
       <h1 class="text-white text-md uppercase font-bold sm:text-3xl">
         VBA Code Library
       </h1>
       <button
         v-if="!user"
-        class="text-white font-bold bg-primary px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark scale-50 sm:scale-100 transition-scale hover:scale-105 duration-50 ease-in-out"
+        class="text-white font-bold bg-primary px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark transition-scale hover:scale-105 duration-50 ease-in-out"
         title="Only for admin functions"
         @click="displayLoginDialog"
       >
@@ -17,14 +22,14 @@
       </button>
       <div v-else>
         <button
-          class="text-white font-bold bg-primary mx-1 px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark scale-50 sm:scale-100 transition-scale hover:scale-55 sm:hover:scale-105 duration-50 ease-in-out"
+          class="text-white font-bold bg-primary mx-1 px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark transition-scale hover:scale-55 sm:hover:scale-105 duration-50 ease-in-out"
           title="Only for admin functions"
           @click="displayAddDialog"
         >
           ADD
         </button>
         <button
-          class="text-white font-bold bg-primary mx-1 px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark scale-50 sm:scale-100 transition-scale hover:scale-55 sm:hover:scale-105 duration-50 ease-in-out"
+          class="text-white font-bold bg-primary mx-1 px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark transition-scale hover:scale-55 sm:hover:scale-105 duration-50 ease-in-out"
           title="Only for admin functions"
           @click="logout"
         >
@@ -57,11 +62,16 @@ export default {
       await supabase.auth.signOut();
     }
 
+    function forceRefresh() {
+      store.dispatch("forceRefresh");
+    }
+
     return {
       displayLoginDialog,
       displayAddDialog,
       user,
       logout,
+      forceRefresh,
     };
   },
 };

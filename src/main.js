@@ -6,10 +6,14 @@ import "./index.css";
 //importing icons from FontAwesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 //import { faPenToSquare } from "@fortawesome/free-regular-svg-icons";
-import { faPenToSquare, faClipboard } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPenToSquare,
+  faClipboard,
+  faTrashCan,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
-library.add(faPenToSquare, faClipboard);
+library.add(faPenToSquare, faClipboard, faTrashCan);
 
 createApp(App)
   .component("font-awesome-icon", FontAwesomeIcon)

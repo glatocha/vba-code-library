@@ -2,7 +2,7 @@
   <div class="p-2 text-left">
     <ul class="overflow-auto h-full">
       <li
-        class="border-b cursor-pointer py-1 mr-1 group"
+        class="border-b cursor-pointer pt-1 mr-1 group"
         v-for="(item, index) in listOfItems"
         :key="index"
         @click="selectItem(item)"

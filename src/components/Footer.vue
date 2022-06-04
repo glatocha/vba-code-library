@@ -3,6 +3,7 @@
     <p class="text-gray-400 text-sm font-bold">
       &copy; Grzegorz Latocha @2020-2022 -
       <a href="mailto:glatocha@gmail.com">glatocha@gmail.com</a>
+      - powered by <a href="https://supabase.com/" target="blank">Supabase</a>
     </p>
   </div>
 </template>

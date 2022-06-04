@@ -5,11 +5,17 @@
 
   <login-dialog v-if="isLoginDialogOpen"></login-dialog>
   <add-dialog v-if="isAddDialogOpen"></add-dialog>
+  <edit-dialog v-if="isEditDialogOpen"></edit-dialog>
+  <loading-dialog
+    v-if="loadingDialog.isOpen"
+    :textClass="loadingDialog.textClass"
+    :text="loadingDialog.text"
+  ></loading-dialog>
 </template>
 
 <script>
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { watch, computed } from "vue";
 import { supabase } from "./supabase/init";
 
 import Header from "./components/Header.vue";
@@ -18,6 +24,8 @@ import MainPanel from "./components/MainPanel.vue";
 
 import LoginDialog from "./dialogs/LoginDialog.vue";
 import AddDialog from "./dialogs/AddDialog.vue";
+import EditDialog from "./dialogs/EditDialog.vue";
+import LoadingDialog from "./dialogs/LoadingDialog.vue";
 
 export default {
   components: {
@@ -26,18 +34,28 @@ export default {
     MainPanel,
     LoginDialog,
     AddDialog,
+    EditDialog,
+    LoadingDialog,
   },
   setup() {
     const store = useStore();
 
     const isLoginDialogOpen = computed(() => store.getters.isLoginDialogOpen);
     const isAddDialogOpen = computed(() => store.getters.isAddDialogOpen);
+    const isEditDialogOpen = computed(() => store.getters.isEditDialogOpen);
+    const refreshRequest = computed(() => store.getters.refreshRequest);
+    const loadingDialog = computed(() => store.getters.loadingDialog);
 
     //check if user already logged in - for example after refresh
     store.dispatch("setUser", supabase.auth.user());
 
     //read all items from supabase
     async function getItems() {
+      store.dispatch("setLoadingDialog", {
+        isOpen: true,
+        text: "Loading data...",
+        textClass: "info",
+      });
       try {
         const { data: items, error } = await supabase
           .from("vba-snippets")
@@ -45,12 +63,29 @@ export default {
           .order("title", { ascending: true });
         if (error) throw error;
         store.dispatch("setItems", items);
-        console.log("items :>> ", items);
+        //console.log("items :>> ", items);
+        store.dispatch("ackRefresh");
+        store.dispatch("closeDialog");
       } catch (error) {
         console.warn("error :>> ", error.message);
+        store.dispatch("setLoadingDialog", {
+          isOpen: true,
+          text: "Loading error :" + error.message,
+          textClass: "alarm",
+        });
+        setTimeout(() => {
+          store.dispatch("closeDialog");
+        }, 5000);
       }
     }
     getItems();
+
+    watch(refreshRequest, (newValue, oldValue) => {
+      //console.log("Watch fired on refreshRequest " + newValue);
+      if (oldValue === false && newValue === true) {
+        getItems();
+      }
+    });
 
     // Runs when there is a auth state change
     // if user is logged in, this will fire
@@ -60,18 +95,20 @@ export default {
       console.log("session :>> ", session);
     });
 
-    //Subscribe to change events
-    const mySubscription = supabase
-      .from("vba-snippets")
-      .on("*", (payload) => {
-        //here we will reload the whole table?!
-        console.log("Change in the table received!", payload);
-      })
-      .subscribe();
+    //Subscribe to change events - this needs to be enabled in supabase and is resource consuming, not using for now
+    // supabase
+    //   .from("vba-snippets")
+    //   .on("INSERT", (payload) => {
+    //     //here we will reload the whole table?!
+    //     console.log("Change in the table received!", payload);
+    //   })
+    //   .subscribe();
 
     return {
       isLoginDialogOpen,
       isAddDialogOpen,
+      isEditDialogOpen,
+      loadingDialog,
     };
   },
 };
