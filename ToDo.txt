@@ -15,6 +15,11 @@ Test resolutions:
 - Mobile, different versions
 - Wide HD
 
+Friday 10.06.2022
+- mobile layout with comboBox - DONE
+- responsive design for the icons after login - DONE
+- make responsive design for the header 
+
 Saturday 04.06.2022
 - change the policies for loading - DONE
 - allow modification only for admin user - DONE

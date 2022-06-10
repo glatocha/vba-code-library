@@ -3,8 +3,13 @@
     <div
       class="h-12 flex flex-row items-center px-3 m-2 bg-gray-300 rounded-md justify-between"
     >
-      <h2 class="p-1 text-black font-bold">{{ item.title }}</h2>
-      <div class="text-primary-dark">
+      <h2 class="hidden sm:block p-1 text-black font-bold">{{ item.title }}</h2>
+
+      <selector-drop-down
+        class="sm:hidden overflow-ellipsis w-2/3 flex bg-opacity-70 bg-black flex-1 text-white my-2 rounded-lg border-primary-dark border-4 self-center box-border"
+      ></selector-drop-down>
+
+      <div class="text-primary-dark whitespace-nowrap min-w-max">
         <font-awesome-icon
           v-if="user"
           class="cursor-pointer mx-1 h-6 hover:scale-110"
@@ -40,8 +45,12 @@ import { ref, computed } from "vue";
 import { useStore } from "vuex";
 import { supabase } from "../supabase/init";
 import string2html from "../vba-formating";
+import SelectorDropDown from "./SelectorDropDown.vue";
 
 export default {
+  components: {
+    SelectorDropDown,
+  },
   setup() {
     const store = useStore();
     const user = computed(() => store.getters.user);
