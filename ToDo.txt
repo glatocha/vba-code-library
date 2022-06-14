@@ -18,7 +18,8 @@ Test resolutions:
 Friday 10.06.2022
 - mobile layout with comboBox - DONE
 - responsive design for the icons after login - DONE
-- make responsive design for the header 
+- make responsive design for the header - DONE
+- modify the Footer - email under the name
 
 Saturday 04.06.2022
 - change the policies for loading - DONE

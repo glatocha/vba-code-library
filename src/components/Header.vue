@@ -14,13 +14,13 @@
       </h1>
       <button
         v-if="!user"
-        class="text-white font-bold bg-primary px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark transition-scale hover:scale-105 duration-50 ease-in-out"
+        class="hidden sm:block text-white font-bold bg-primary px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark transition-scale hover:scale-105 duration-50 ease-in-out"
         title="Only for admin functions"
         @click="displayLoginDialog"
       >
         ADMIN
       </button>
-      <div v-else>
+      <div v-else class="hidden sm:block">
         <button
           class="text-white font-bold bg-primary mx-1 px-3 py-2 rounded-lg hover:bg-primary-light focus:outline-primary-dark transition-scale hover:scale-55 sm:hover:scale-105 duration-50 ease-in-out"
           title="Only for admin functions"
