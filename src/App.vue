@@ -116,7 +116,7 @@ export default {
 
 <style>
 body {
-  background-image: url(./assets/bg6.jpg);
+  background-image: url(./assets/bg.png);
   /* Center the image */
   background-position: center;
   /* Do not repeat the image */
