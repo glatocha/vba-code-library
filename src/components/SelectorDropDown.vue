@@ -1,10 +1,5 @@
 <template>
-  <select
-    @change="selectItem()"
-    name="dropDownSelector"
-    id="dropDownSelector"
-    v-model="selItem"
-  >
+  <select @change="selectItem()" name="dropDownSelector" id="dropDownSelector" v-model="selItem">
     <option hidden>Select the snippet</option>
     <option v-for="(item, index) in listOfItems" :key="index" :value="item">
       {{ item.title }}
@@ -27,6 +22,7 @@ export default {
     function selectItem() {
       //   console.log("Select item fired - " + selItem.value);
       store.dispatch("setSelectedItem", selItem.value);
+      window.history.replaceState({ page: "page" }, "", `?selectItem=${item.id}`);
     }
 
     return { listOfItems, selectItem, selItem };
