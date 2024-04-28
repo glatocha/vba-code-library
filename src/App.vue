@@ -66,6 +66,11 @@ export default {
         //console.log("items :>> ", items);
         store.dispatch("ackRefresh");
         store.dispatch("closeDialog");
+        //All data loaded, if argument passed to the URL, go directly to the item
+        const params = new URLSearchParams(window.location.search);
+        const urlItem = params.get("selectItem");
+        console.log("page loaded with the arugument - urlItem :>> ", urlItem);
+        store.dispatch("setItemByURLNumber", urlItem);
       } catch (error) {
         console.warn("error :>> ", error.message);
         store.dispatch("setLoadingDialog", {

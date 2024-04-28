@@ -25,6 +25,7 @@ export default {
     console.log("list :>> ", listOfItems);
 
     function selectItem(item) {
+      window.history.replaceState({ page: "page" }, "", `?selectItem=${item.id}`);
       store.dispatch("setSelectedItem", item);
     }
 
